@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>IME EXER 2027</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Diagnóstico indicativo de maturidade empresarial desenvolvido pela EXER.">
+<meta name="theme-color" content="#061113">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: coluna única mobile-first (máx. 560px) para o participante; grade larga 16:9 para /live e /admin.
+   Linguagem de instrumentos: escalas com marcações, leituras em mono, horizonte fino. */
+:root{
+  --bg:#061113; --bg-2:#0a1a1d; --surface:#0d2125; --surface-2:#11292e; --line:#1d3b40; --line-2:#2a5056;
+  --fg:#ecf6f4; --muted:#97b2af; --faint:#5f7d7a;
+  --aqua:#3ddac6; --aqua-2:#22a594; --ink:#03201c;
+  --amber:#f0b44c; --coral:#e8836c;
+  --c-cegas:#e8836c; --c-basicos:#f0b44c; --c-assistido:#cdd66d; --c-controlado:#72deb3; --c-preparado:#3ddac6;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:14px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--body);min-height:100%;
+  background-image:radial-gradient(120% 60% at 50% -10%, #0f3a3a 0%, rgba(6,17,19,0) 60%);background-attachment:fixed;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+a{color:var(--aqua)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--aqua);outline-offset:3px;border-radius:6px}
+.wrap{max-width:560px;margin:0 auto;padding-block:20px 48px}
+.wide{max-width:1280px;margin:0 auto;padding-block:20px 48px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font:500 12px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--aqua)}
+.muted{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* barra da marca */
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:6px 18px}
+.logo{font:800 20px/1 var(--display);font-stretch:125%;letter-spacing:.06em;color:var(--fg);text-decoration:none}
+.logo span{color:var(--aqua)}
+.brand .tag{font:500 11px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:999px;border:0;cursor:pointer;
+  font:700 15px/1 var(--display);font-stretch:112%;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:transform .15s ease, background .2s, opacity .2s}
+.btn-primary{background:var(--aqua);color:var(--ink)}
+.btn-primary:hover{background:#5ee6d4}
+.btn-primary:active{transform:scale(.98)}
+.btn-ghost{background:transparent;color:var(--fg);border:1px solid var(--line-2)}
+.btn-ghost:hover{border-color:var(--aqua)}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.link-btn{background:none;border:0;padding:8px 0;color:var(--muted);cursor:pointer;font:500 14px var(--body);text-decoration:underline;text-underline-offset:3px}
+.link-btn:hover{color:var(--fg)}
+
+/* banner demo */
+.demo-strip{border:1px dashed var(--amber);color:var(--amber);border-radius:10px;padding:10px 14px;font:500 12px/1.45 var(--mono);letter-spacing:.02em;margin-bottom:16px}
+
+/* ===== LANDING ===== */
+.hero{padding-top:8px}
+.hero .kicker{display:flex;flex-direction:column;gap:6px;margin-bottom:28px}
+.hero .ime{font:800 15px/1 var(--display);font-stretch:125%;letter-spacing:.14em}
+.hero h1{font:800 clamp(34px,10.4vw,56px)/1.02 var(--display);font-stretch:108%;letter-spacing:-.01em;text-transform:uppercase;margin:0 0 20px;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--aqua)}
+.hero p.lead{font-size:18px;color:var(--muted);margin:0 0 28px;max-width:34ch}
+.horizon{position:relative;height:56px;margin:4px 0 26px}
+.horizon svg{width:100%;height:100%;display:block}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:28px}
+.facts div{padding:14px 4px;display:flex;flex-direction:column;gap:4px}
+.facts div+div{border-left:1px solid var(--line);padding-left:12px}
+.facts b{font:700 24px/1 var(--display);font-stretch:112%}
+.facts span{font-size:12.5px;color:var(--muted);line-height:1.3}
+.disclaimer{font-size:13px;color:var(--faint);text-align:center;margin:16px 0 0}
+.foot{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margin-top:40px;font-size:13px;color:var(--faint)}
+.foot a{color:var(--muted)}
+
+/* ===== QUIZ ===== */
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.qcount{font:500 13px var(--mono);color:var(--muted);letter-spacing:.06em}
+.qcount b{color:var(--fg);font-weight:500}
+.progress{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:6px}
+.progress i{display:block;height:100%;background:var(--aqua);width:0;transition:width .35s ease}
+.ticks{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:30px}
+.ticks span{font:500 10px var(--mono);color:var(--faint);letter-spacing:.06em;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ticks span.on{color:var(--aqua)}
+.qcard{animation:rise .35s ease both}
+.qdim{margin-bottom:12px}
+.qtext{font:700 clamp(22px,6.2vw,28px)/1.22 var(--display);font-stretch:100%;margin:0 0 26px;text-wrap:balance}
+.scale{display:flex;flex-direction:column;gap:10px}
+.opt{display:grid;grid-template-columns:44px 1fr;align-items:center;gap:14px;width:100%;min-height:60px;padding:10px 16px 10px 10px;text-align:left;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);cursor:pointer;transition:border-color .15s, background .15s, transform .1s}
+.opt:hover{border-color:var(--line-2);background:var(--surface-2)}
+.opt:active{transform:scale(.99)}
+.opt .n{display:grid;place-items:center;width:44px;height:44px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);font:500 18px var(--mono);color:var(--muted)}
+.opt .t{font-weight:500;font-size:16px;line-height:1.3}
+.opt[aria-checked="true"]{border-color:var(--aqua);background:#0f3433}
+.opt[aria-checked="true"] .n{background:var(--aqua);color:var(--ink);border-color:var(--aqua)}
+.qnav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px}
+.qhint{font-size:12.5px;color:var(--faint);text-align:center;margin-top:18px}
+
+/* calculando */
+.calc{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center}
+.calc .ring{width:72px;height:72px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--aqua);animation:spin 1s linear infinite}
+.calc p{font:700 18px var(--display);font-stretch:112%;letter-spacing:.06em;text-transform:uppercase;margin:0}
+.calc small{font:500 12px var(--mono);color:var(--muted);letter-spacing:.06em;min-height:1.4em}
+
+/* ===== RESULTADO ===== */
+.rhead{text-align:center;margin-bottom:6px}
+.gauge{position:relative;max-width:300px;margin:0 auto}
+.gauge svg{width:100%;height:auto;display:block}
+.gauge .read{position:absolute;left:0;right:0;top:40%;text-align:center}
+.gauge .num{font:800 clamp(64px,22vw,92px)/.9 var(--display);font-stretch:100%;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.gauge .den{font:500 14px var(--mono);color:var(--muted);letter-spacing:.08em}
+.classe{text-align:center;margin:4px 0 6px}
+.classe .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1px solid currentColor;font:800 14px/1 var(--display);font-stretch:118%;letter-spacing:.1em;text-transform:uppercase}
+.classe .pill::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.classe p{color:var(--muted);margin:16px auto 0;max-width:40ch;font-size:16px}
+.scaleband{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin:26px 0 8px}
+.scaleband div{height:6px;border-radius:2px;opacity:.28}
+.scaleband div.on{opacity:1}
+.scalelbl{display:flex;justify-content:space-between;font:500 11px/1.3 var(--mono);color:var(--faint);letter-spacing:.04em}
+.scalelbl b{color:var(--fg);font-weight:500}
+.sec{margin-top:44px}
+.sec h2{font:800 22px/1.15 var(--display);font-stretch:112%;margin:6px 0 18px;text-transform:uppercase;letter-spacing:.01em}
+.bars{display:flex;flex-direction:column;gap:16px}
+.bar .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:7px}
+.bar .lbl{font-weight:600;font-size:15px}
+.bar .val{font:500 15px var(--mono);font-variant-numeric:tabular-nums}
+.bar .track{position:relative;height:10px;background:var(--bg-2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.bar .fill{position:absolute;inset:0 auto 0 0;width:0;border-radius:6px;background:var(--aqua);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.bar .track::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent calc(25% - 1px),var(--line-2) 25%,transparent calc(25% + 1px),transparent calc(50% - 1px),var(--line-2) 50%,transparent calc(50% + 1px),transparent calc(75% - 1px),var(--line-2) 75%,transparent calc(75% + 1px))}
+.axis{display:flex;justify-content:space-between;font:500 10px var(--mono);color:var(--faint);margin-top:4px}
+.two{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:480px){.two{grid-template-columns:1fr 1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.panel h3{font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px}
+.panel ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.panel li{display:flex;justify-content:space-between;gap:10px;font-weight:600}
+.panel li span{font:500 14px var(--mono);color:var(--muted)}
+.panel .note{font-size:14px;color:var(--muted);font-weight:400}
+.ok h3{color:var(--aqua)} .warn h3{color:var(--amber)}
+.prio{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:p}
+.prio li{display:grid;grid-template-columns:40px 1fr;gap:14px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.prio li::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--aqua);color:var(--aqua);font:500 16px var(--mono)}
+.prio b{display:block;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.prio p{margin:0;font-size:16px;line-height:1.45}
+.quote{margin:52px 0 0;padding:34px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}
+.quote p{margin:0;font:800 clamp(22px,6.6vw,30px)/1.15 var(--display);font-stretch:108%;text-transform:uppercase;text-wrap:balance}
+.quote p+p{color:var(--aqua);margin-top:10px}
+details.method{margin-top:18px;border:1px solid var(--line);border-radius:var(--r);padding:0 16px}
+details.method summary{cursor:pointer;padding:14px 0;font-weight:600;color:var(--muted);list-style-position:inside}
+details.method[open] summary{color:var(--fg)}
+details.method .in{padding-bottom:16px;font-size:14.5px;color:var(--muted)}
+details.method table{border-collapse:collapse;width:100%;font:13px var(--mono);margin:10px 0}
+details.method td{padding:5px 0;border-bottom:1px solid var(--line)}
+details.method td:last-child{text-align:right;color:var(--fg)}
+.actions{display:flex;flex-direction:column;gap:10px;margin-top:26px}
+
+/* final */
+.final{margin-top:56px;padding:56px 0 24px;text-align:center;border-top:1px solid var(--line)}
+.final h2{font:800 clamp(30px,9vw,46px)/1.02 var(--display);font-stretch:108%;text-transform:uppercase;margin:0 0 12px;text-wrap:balance}
+.final h2 span{color:var(--aqua);display:block}
+.final .sig{margin:30px 0 26px;display:flex;flex-direction:column;gap:6px;align-items:center}
+.final .sig .logo{font-size:30px}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(2,8,9,.82);display:grid;place-items:center;padding:20px max(16px,env(safe-area-inset-right,0px)) 20px max(16px,env(safe-area-inset-left,0px));animation:fade .2s ease}
+.modal .box{background:var(--bg-2);border:1px solid var(--line-2);border-radius:18px;padding:18px;width:100%;max-width:420px;max-height:92vh;overflow:auto}
+.modal img{width:100%;border-radius:10px;display:block;margin-bottom:12px}
+.modal .row{display:flex;flex-direction:column;gap:8px}
+.modal p{font-size:13px;color:var(--muted);text-align:center;margin:8px 0 0}
+
+/* privacidade */
+.doc h1{font:800 30px/1.1 var(--display);font-stretch:112%;text-transform:uppercase;margin:6px 0 16px}
+.doc h2{font:700 18px var(--display);font-stretch:108%;margin:28px 0 8px}
+.doc p,.doc li{color:var(--muted);max-width:65ch}
+.doc .ph{color:var(--amber)}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--ink);padding:12px 18px;border-radius:999px;font-weight:600;font-size:14px;z-index:60;animation:fade .2s}
+
+@keyframes rise{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+
+<noscript><p style="padding:24px">Ative o JavaScript para realizar o diagnóstico IME EXER 2027.</p></noscript>
+
+<!-- ================= LANDING ================= -->
+<main id="v-inicio" class="wrap" data-view>
+  <header class="brand"><a class="logo" href="#" data-go="inicio" aria-label="EXER, página inicial">EXER<span>.</span></a><span class="tag">Parceira na Gestão de Negócios</span></header>
+  <div id="demo-note-landing"></div>
+  <section class="hero" aria-labelledby="h-hero">
+    <div class="kicker"><span class="ime">IME EXER 2027</span><span class="eyebrow">Índice de Maturidade Empresarial</span></div>
+    <h1 id="h-hero">Sua empresa está preparada para as <em>turbulências de 2027?</em></h1>
+    <div class="horizon" aria-hidden="true">
+      <svg viewBox="0 0 400 56" preserveAspectRatio="none">
+        <line x1="0" y1="28" x2="400" y2="28" stroke="#2a5056" stroke-width="1"/>
+        <g stroke="#3ddac6" stroke-width="1.5"><line x1="150" y1="28" x2="185" y2="28"/><line x1="215" y1="28" x2="250" y2="28"/><circle cx="200" cy="28" r="3" fill="#3ddac6" stroke="none"/></g>
+        <g stroke="#2a5056" stroke-width="1"><line x1="20" y1="20" x2="20" y2="36"/><line x1="60" y1="24" x2="60" y2="32"/><line x1="100" y1="20" x2="100" y2="36"/><line x1="300" y1="20" x2="300" y2="36"/><line x1="340" y1="24" x2="340" y2="32"/><line x1="380" y1="20" x2="380" y2="36"/></g>
+      </svg>
+    </div>
+    <p class="lead">Descubra em aproximadamente 90 segundos o nível de maturidade da sua empresa para enfrentar mudanças econômicas, financeiras e mercadológicas.</p>
+    <div class="facts" role="list">
+      <div role="listitem"><b class="mono">6</b><span>perguntas</span></div>
+      <div role="listitem"><b class="mono">≈90s</b><span>de preenchimento</span></div>
+      <div role="listitem"><b class="mono">0–100</b><span>resultado imediato</span></div>
+    </div>
+    <button class="btn btn-primary btn-block" data-go="diagnostico" id="btn-iniciar">Iniciar diagnóstico</button>
+    <p class="disclaimer">Diagnóstico indicativo de maturidade empresarial desenvolvido pela EXER. Suas respostas ficam somente no seu celular.</p>
+  </section>
+  <footer class="foot"><span>© EXER</span><a href="#privacidade" data-go="privacidade">Política de Privacidade</a></footer>
+</main>
+
+<!-- ================= DIAGNÓSTICO ================= -->
+<main id="v-diagnostico" class="wrap" data-view hidden>
+  <header class="brand"><a class="logo" href="#" data-go="inicio" aria-label="EXER, página inicial">EXER<span>.</span></a><span class="tag">IME 2027</span></header>
+  <div id="quiz"></div>
+</main>
+
+<!-- ================= RESULTADO ================= -->
+<main id="v-resultado" class="wrap" data-view hidden>
+  <header class="brand"><a class="logo" href="#" data-go="inicio" aria-label="EXER, página inicial">EXER<span>.</span></a><span class="tag">IME 2027</span></header>
+  <div id="resultado"></div>
+</main>
+
+<!-- ================= PRIVACIDADE ================= -->
+<main id="v-privacidade" class="wrap doc" data-view hidden>
+  <header class="brand"><a class="logo" href="#" data-go="inicio" aria-label="EXER, página inicial">EXER<span>.</span></a><span class="tag">LGPD</span></header>
+  <span class="eyebrow">IME EXER 2027</span>
+  <h1>Política de Privacidade</h1>
+  <p>Esta política explica como funciona o diagnóstico IME EXER 2027 em relação aos seus dados, conforme a Lei nº 13.709/2018 (LGPD).</p>
+  <h2>1. Nenhum dado é enviado à EXER</h2>
+  <p>O diagnóstico é calculado inteiramente no seu navegador. Suas respostas, sua pontuação e suas recomendações não são enviadas, armazenadas nem visualizadas pela EXER ou por qualquer outra pessoa.</p>
+  <h2>2. Nenhum dado pessoal é pedido</h2>
+  <p>Não pedimos nome, empresa, telefone ou e-mail para realizar o diagnóstico ou ver o resultado.</p>
+  <h2>3. O que fica no seu aparelho</h2>
+  <p>Para que você possa rever o resultado depois, as seis respostas ficam guardadas apenas no armazenamento local do seu navegador. Você pode apagá-las a qualquer momento pelo botão "Apagar meu resultado deste aparelho", na tela de resultado, ou limpando os dados do navegador.</p>
+  <h2>4. Compartilhamento</h2>
+  <p>Só há compartilhamento se você mesmo decidir, ao usar "Compartilhar resultado" ou "Falar com a EXER". Nesse caso, apenas o índice geral e a classificação são incluídos, nunca as respostas individuais.</p>
+  <h2>5. Contato</h2>
+  <p>Dúvidas sobre privacidade: <span class="ph" data-cfg="emailPrivacidade">equipe EXER</span>.</p>
+  <p style="margin-top:28px"><button class="btn btn-ghost" data-back>Voltar</button></p>
+</main>
+
+<script>
+/* =====================================================================
+   CONFIGURAÇÃO — preencha antes de publicar
+   Esta versão não envia nem armazena nada em servidor: o diagnóstico
+   é calculado e exibido somente no aparelho do participante.
+   ===================================================================== */
+const IME_CONFIG = Object.assign({
+  contatoWhatsApp: "",      // número da EXER com DDI e DDD, só dígitos, ex.: "5586999999999"
+  emailPrivacidade: ""
+}, window.IME_CONFIG || {});
+
+/* ===================== MODELO DO DIAGNÓSTICO ===================== */
+const DIMS = [
+  {k:"financeiro",   nome:"Financeiro",          area:"Gestão financeira",   peso:20, q:"Sua empresa possui fluxo de caixa projetado e acompanha regularmente sua necessidade de capital de giro?",
+   rec:["Implante um fluxo de caixa projetado de pelo menos 90 dias.","Estenda o fluxo de caixa para 12 meses e defina um colchão mínimo de capital de giro."]},
+  {k:"rentabilidade",nome:"Rentabilidade",       area:"Rentabilidade",       peso:20, q:"Você conhece com clareza a margem, o ponto de equilíbrio e a rentabilidade dos principais produtos ou serviços da empresa?",
+   rec:["Revise margem de contribuição, ponto de equilíbrio e rentabilidade por produto ou serviço.","Acompanhe a margem por produto todo mês e reprecifique onde ela caiu."]},
+  {k:"comercial",    nome:"Comercial",           area:"Gestão comercial",    peso:15, q:"Sua empresa acompanha indicadores como metas, conversão, ticket médio, recorrência, carteira de clientes e pipeline de vendas?",
+   rec:["Estruture metas e acompanhe indicadores de conversão, ticket, recorrência e pipeline.","Revise metas e pipeline a cada 15 dias e priorize os clientes de maior margem."]},
+  {k:"pessoas",      nome:"Pessoas e Operação",  area:"Pessoas e operação",  peso:15, q:"Sua equipe possui responsabilidades, metas, processos e indicadores claramente definidos e acompanhados?",
+   rec:["Defina responsabilidades, metas e indicadores claros para as principais funções.","Ligue as metas individuais aos indicadores da empresa numa reunião mensal de resultados."]},
+  {k:"estrategia",   nome:"Estratégia",          area:"Estratégia e tributos",peso:15, q:"Sua empresa já avaliou como juros, custos, mudanças tributárias e cenário econômico podem afetar preço, margem e fluxo de caixa?",
+   rec:["Simule impactos de juros, tributação, custos e demanda sobre preço e margem.","Atualize a simulação de juros e da reforma tributária a cada trimestre."]},
+  {k:"resiliencia",  nome:"Resiliência",         area:"Resiliência",         peso:15, q:"Se vendas, custos, crédito ou demanda mudarem significativamente em 2027, sua empresa possui cenários e um plano de resposta?",
+   rec:["Construa pelo menos três cenários: conservador, base e expansão.","Defina gatilhos objetivos que acionam cada cenário e revise-os a cada trimestre."]},
+];
+const ESCALA = ["Não fazemos / não existe","Muito pouco estruturado","Parcialmente estruturado","Bem estruturado","Estruturado e monitorado"];
+const CLASSES = [
+  {id:"cegas",      max:20,  nome:"Voo às cegas",               cor:"var(--c-cegas)",      hex:"#e8836c", desc:"A empresa ainda toma muitas decisões com poucos instrumentos de gestão e elevada dependência de percepção ou reação."},
+  {id:"basicos",    max:40,  nome:"Instrumentos básicos",       cor:"var(--c-basicos)",    hex:"#f0b44c", desc:"Existem alguns controles, porém ainda faltam integração, previsibilidade e acompanhamento consistente de indicadores."},
+  {id:"assistido",  max:60,  nome:"Voo assistido",              cor:"var(--c-assistido)",  hex:"#cdd66d", desc:"A empresa já possui instrumentos importantes de gestão, mas ainda existem vulnerabilidades relevantes diante de cenários mais desafiadores."},
+  {id:"controlado", max:80,  nome:"Voo controlado",             cor:"var(--c-controlado)", hex:"#72deb3", desc:"A empresa apresenta boa estrutura gerencial, indicadores e capacidade de antecipar parte dos movimentos do mercado."},
+  {id:"preparado",  max:100, nome:"Preparado para turbulências",cor:"var(--c-preparado)",  hex:"#3ddac6", desc:"A empresa apresenta elevada maturidade gerencial e boa capacidade de monitoramento, adaptação e tomada de decisão."},
+];
+
+/* Cálculo em inteiros para evitar erro de ponto flutuante:
+   pontos = resposta × 25; geral = round(Σ pontos × peso% / 100). Mesmo cálculo do trigger SQL. */
+function classificar(score){ return CLASSES.find(c => score <= c.max) || CLASSES[CLASSES.length-1]; }
+function calcular(resp){
+  const dims = {}; let soma = 0;
+  DIMS.forEach((d,i) => { const p = resp[i]*25; dims[d.k] = p; soma += p*d.peso; });
+  const geral = Math.round(soma/100);
+  return { dims, geral, classe: classificar(geral) };
+}
+function interpretar(dims){
+  const ord = DIMS.map((d,i)=>({...d, i, v:dims[d.k]}));
+  const desc = [...ord].sort((a,b)=> b.v-a.v || a.i-b.i);
+  const asc  = [...ord].sort((a,b)=> a.v-b.v || b.peso-a.peso || a.i-b.i);
+  const forcas = desc.filter(d=>d.v>=50).slice(0,2);
+  const atencao = asc.filter(d=>d.v<=75 && !forcas.includes(d)).slice(0,2);
+  const prioridades = asc.slice(0,3).map(d=>({dim:d, texto: d.v<=50 ? d.rec[0] : d.rec[1]}));
+  return { forcas, atencao, prioridades };
+}
+/* ===================== UTILITÁRIOS ===================== */
+const $ = (s,el=document)=>el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(k, area="local"){ try{ const v=(area==="session"?sessionStorage:localStorage).getItem(k); return v?JSON.parse(v):null; }catch{ return null; } },
+  set(k,v, area="local"){ try{ (area==="session"?sessionStorage:localStorage).setItem(k, JSON.stringify(v)); }catch{} },
+  del(k, area="local"){ try{ (area==="session"?sessionStorage:localStorage).removeItem(k); }catch{} }
+};
+const uuid = () => (crypto.randomUUID ? crypto.randomUUID() :
+  "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)));
+const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function toast(msg){ const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function contar(el, alvo, ms=1100){
+  if(reduz){ el.textContent = alvo; return; }
+  const t0 = performance.now();
+  const f = t => { const p=Math.min(1,(t-t0)/ms), e=1-Math.pow(1-p,3); el.textContent=Math.round(alvo*e); if(p<1) requestAnimationFrame(f); };
+  requestAnimationFrame(f);
+}
+
+/* download da imagem do card (dentro do claude.ai usa a capacidade "downloads"; num site próprio, link comum) */
+let DL = null;
+(async()=>{ try{ DL = (window.claude && window.claude.use) ? await window.claude.use("downloads") : null; }catch{ DL = null; } })();
+
+/* ===================== ROTEAMENTO ===================== */
+const ROTAS = ["diagnostico","resultado","privacidade"];
+const segPath = location.pathname.replace(/\/+$/,"").split("/").pop();
+let usarPath = ROTAS.includes(segPath);
+let rotaAnterior = "inicio";
+function rotaAtual(){
+  if(usarPath){ const p = location.pathname.replace(/\/+$/,"").split("/").pop(); if(ROTAS.includes(p)) return p; }
+  const h = location.hash.slice(1); return ROTAS.includes(h) ? h : "inicio";
+}
+function ir(r){
+  rotaAnterior = rotaAtual();
+  if(usarPath){ history.pushState(null,"", "/"+(r==="inicio"?"":r)+location.search); render(); }
+  else { const alvo = r==="inicio" ? "" : r; if(location.hash.slice(1)===alvo) render(); else location.hash = alvo; }
+  window.scrollTo(0,0);
+}
+function render(){
+  const r = rotaAtual();
+  document.querySelectorAll("[data-view]").forEach(v=> v.hidden = v.id !== "v-"+r);
+  const titulos = {inicio:"IME EXER 2027", diagnostico:"Diagnóstico · IME EXER 2027", resultado:"Seu resultado · IME EXER 2027", privacidade:"Privacidade · IME EXER 2027"};
+  document.title = titulos[r];
+  ({inicio:initInicio, diagnostico:initQuiz, resultado:initResultado, privacidade:initPriv})[r]();
+}
+document.addEventListener("click", e=>{
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); ir(g.dataset.go); return; }
+  if(e.target.closest("[data-back]")){ e.preventDefault(); ir(rotaAnterior && rotaAnterior!=="privacidade" ? rotaAnterior : "inicio"); }
+});
+addEventListener("hashchange", render);
+addEventListener("popstate", render);
+
+/* ===================== LANDING ===================== */
+function initInicio(){
+  $("#demo-note-landing").innerHTML = "";
+  const salvo = store.get("ime_resultado");
+  const b = $("#btn-iniciar");
+  b.textContent = "Iniciar diagnóstico";
+  if(salvo && salvo.respostas && !$("#ver-ultimo")){
+    const l = document.createElement("p"); l.style.textAlign="center"; l.style.margin="10px 0 0";
+    l.innerHTML = `<button class="link-btn" id="ver-ultimo" data-go="resultado">Ver meu último resultado</button>`;
+    b.after(l);
+  }
+}
+
+/* ===================== QUESTIONÁRIO ===================== */
+let Q = {i:0, resp:[null,null,null,null,null,null]};
+function initQuiz(){
+  const s = store.get("ime_quiz","session");
+  Q = (s && Array.isArray(s.resp) && s.resp.length===6) ? s : {i:0, resp:[null,null,null,null,null,null]};
+  pergunta();
+}
+function pergunta(){
+  const d = DIMS[Q.i], sel = Q.resp[Q.i];
+  $("#quiz").innerHTML = `
+    <div class="qtop"><span class="qcount">Pergunta <b>${Q.i+1}</b> de 6</span><span class="qcount">${Math.round((Q.i)/6*100)}%</span></div>
+    <div class="progress" role="progressbar" aria-label="Progresso do diagnóstico" aria-valuemin="0" aria-valuemax="6" aria-valuenow="${Q.i}"><i style="width:${(Q.i)/6*100}%"></i></div>
+    <div class="ticks" aria-hidden="true">${DIMS.map((x,j)=>`<span class="${j<=Q.i?"on":""}">${x.nome.split(" ")[0]}</span>`).join("")}</div>
+    <section class="qcard" aria-labelledby="qt">
+      <div class="eyebrow qdim">${esc(d.area)}</div>
+      <h1 class="qtext" id="qt" tabindex="-1">${esc(d.q)}</h1>
+      <div class="scale" role="radiogroup" aria-labelledby="qt">
+        ${ESCALA.map((t,v)=>`<button type="button" class="opt" role="radio" aria-checked="${sel===v}" data-v="${v}"><span class="n">${v}</span><span class="t">${t}</span></button>`).join("")}
+      </div>
+      <div class="qnav">
+        <button type="button" class="btn btn-ghost" id="q-voltar">${Q.i===0?"Início":"Voltar"}</button>
+        <button type="button" class="btn btn-primary" id="q-avancar" ${sel===null?"disabled":""}>${Q.i===5?"Ver resultado":"Avançar"}</button>
+      </div>
+      <p class="qhint">Toque na opção que melhor descreve sua empresa hoje.</p>
+    </section>`;
+  requestAnimationFrame(()=>{ const p=$("#quiz .progress i"); if(p) p.style.width=((Q.i+(sel!==null?1:0))/6*100)+"%"; });
+  $("#quiz .scale").addEventListener("click", e=>{
+    const o = e.target.closest(".opt"); if(!o) return;
+    Q.resp[Q.i] = +o.dataset.v; store.set("ime_quiz", Q, "session");
+    $("#quiz .scale").querySelectorAll(".opt").forEach(x=>x.setAttribute("aria-checked", x===o));
+    $("#q-avancar").disabled = false;
+    $("#quiz .progress i").style.width = ((Q.i+1)/6*100)+"%";
+    clearTimeout(Q._t); Q._t = setTimeout(avancar, reduz?120:320);   // avanço automático, com "Voltar" para corrigir
+  });
+  $("#quiz .scale").addEventListener("keydown", e=>{
+    const v = parseInt(e.key,10); if(v>=0 && v<=4){ e.preventDefault(); $(`#quiz .opt[data-v="${v}"]`).click(); }
+  });
+  $("#q-avancar").onclick = avancar;
+  $("#q-voltar").onclick = ()=>{ clearTimeout(Q._t); if(Q.i===0) ir("inicio"); else { Q.i--; store.set("ime_quiz",Q,"session"); pergunta(); } };
+  const h = $("#qt"); if(h && Q.i>0) h.focus({preventScroll:true});
+}
+function avancar(){
+  clearTimeout(Q._t);
+  if(Q.resp[Q.i]===null) return;
+  if(Q.i<5){ Q.i++; store.set("ime_quiz",Q,"session"); pergunta(); window.scrollTo(0,0); return; }
+  finalizar();
+}
+async function finalizar(){
+  const reg = {respostas:Q.resp.slice(), criado:new Date().toISOString()};
+  store.set("ime_resultado", reg); store.del("ime_quiz","session");
+  const passos = ["Lendo instrumentos","Ponderando dimensões","Traçando a rota"];
+  $("#quiz").innerHTML = `<div class="calc" role="status"><div class="ring" aria-hidden="true"></div><p>Calculando seu IME EXER 2027...</p><small class="mono" id="calc-step">${passos[0]}</small></div>`;
+  let k=0; const it = setInterval(()=>{ k=(k+1)%passos.length; const s=$("#calc-step"); if(s) s.textContent=passos[k]; }, 520);
+  await new Promise(r=>setTimeout(r, reduz?200:1900));
+  clearInterval(it);
+  ir("resultado");
+}
+/* ===================== RESULTADO ===================== */
+function gaugeSVG(valor, cor){
+  // arco de 240°, de 150° a 390°, raio 96
+  const cx=120, cy=118, r=96, L = r*(240*Math.PI/180);
+  let ticks="";
+  for(let i=0;i<=20;i++){ const a=(150+12*i)*Math.PI/180, maior=i%5===0, r1=r+12, r2=r+(maior?22:17);
+    ticks+=`<line x1="${(cx+r1*Math.cos(a)).toFixed(1)}" y1="${(cy+r1*Math.sin(a)).toFixed(1)}" x2="${(cx+r2*Math.cos(a)).toFixed(1)}" y2="${(cy+r2*Math.sin(a)).toFixed(1)}" stroke="${maior?"#5f7d7a":"#2a5056"}" stroke-width="${maior?1.6:1}"/>`; }
+  const lbl=[0,25,50,75,100].map((v,i)=>{ const a=(150+60*i)*Math.PI/180, rr=r+34; return `<text x="${(cx+rr*Math.cos(a)).toFixed(1)}" y="${(cy+rr*Math.sin(a)+4).toFixed(1)}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#5f7d7a">${v}</text>`; }).join("");
+  const p = `M ${(cx+r*Math.cos(150*Math.PI/180)).toFixed(2)} ${(cy+r*Math.sin(150*Math.PI/180)).toFixed(2)} A ${r} ${r} 0 1 1 ${(cx+r*Math.cos(30*Math.PI/180)).toFixed(2)} ${(cy+r*Math.sin(30*Math.PI/180)).toFixed(2)}`;
+  return `<svg viewBox="-24 -22 288 230" role="img" aria-label="Índice ${valor} de 100">
+    ${ticks}${lbl}
+    <path d="${p}" fill="none" stroke="#11292e" stroke-width="14" stroke-linecap="round"/>
+    <path id="g-arc" d="${p}" fill="none" stroke="${cor}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${L.toFixed(1)}" stroke-dashoffset="${L.toFixed(1)}" style="transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)" data-len="${L.toFixed(1)}" data-v="${valor}"/>
+  </svg>`;
+}
+function initResultado(){
+  const reg = store.get("ime_resultado");
+  if(!reg || !Array.isArray(reg.respostas) || reg.respostas.some(v=>v===null || v<0 || v>4)){
+    $("#resultado").innerHTML = `<div class="calc"><p>Nenhum diagnóstico encontrado</p><small class="muted">Responda as 6 perguntas para ver seu índice.</small><button class="btn btn-primary" data-go="diagnostico">Iniciar diagnóstico</button></div>`;
+    return;
+  }
+  const R = calcular(reg.respostas), I = interpretar(R.dims), C = R.classe;
+  const wnum = String(IME_CONFIG.contatoWhatsApp||"").replace(/\D/g,"");
+  const contato = wnum ? `https://wa.me/${wnum}?text=${encodeURIComponent(`Olá, EXER! Fiz o IME EXER 2027 e meu índice foi ${R.geral}/100 (${C.nome}). Quero conversar sobre os próximos passos da minha empresa.`)}` : "";
+  $("#resultado").innerHTML = `
+    <section class="rhead" aria-labelledby="r-t">
+      <div class="eyebrow" id="r-t">Seu IME EXER 2027</div>
+      <div class="gauge">${gaugeSVG(R.geral, C.hex)}
+        <div class="read"><div class="num" id="r-num" aria-hidden="true">0</div><div class="den">/ 100</div></div>
+      </div>
+      <p class="sr">Seu índice é ${R.geral} de 100, classificação ${C.nome}.</p>
+    </section>
+    <div class="classe"><span class="pill" style="color:${C.cor}">${C.nome}</span><p>${C.desc}</p></div>
+    <div class="scaleband" aria-hidden="true">${CLASSES.map(c=>`<div class="${c===C?"on":""}" style="background:${c.cor}"></div>`).join("")}</div>
+    <div class="scalelbl" aria-hidden="true"><span>0</span><span>Faixa <b>${CLASSES[CLASSES.indexOf(C)-1]?CLASSES[CLASSES.indexOf(C)-1].max+1:0}–${C.max}</b> · ${CLASSES.indexOf(C)+1} de 5 níveis</span><span>100</span></div>
+
+    <section class="sec" aria-labelledby="ck">
+      <div class="eyebrow">Leitura por dimensão</div>
+      <h2 id="ck">Seu cockpit empresarial</h2>
+      <div class="bars">${DIMS.map(d=>`
+        <div class="bar"><div class="top"><span class="lbl">${d.nome}</span><span class="val">${R.dims[d.k]}</span></div>
+        <div class="track" role="img" aria-label="${d.nome}: ${R.dims[d.k]} de 100"><div class="fill" data-w="${R.dims[d.k]}" style="background:${classificar(R.dims[d.k]).cor}"></div></div></div>`).join("")}
+        <div class="axis mono" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+      </div>
+    </section>
+
+    <section class="sec two" aria-label="Forças e pontos de atenção">
+      <div class="panel ok"><h3>Forças</h3>${I.forcas.length ? `<ul>${I.forcas.map(d=>`<li>✓ ${d.area}<span>${d.v}</span></li>`).join("")}</ul>` : `<p class="note">Nenhuma dimensão chegou a 50 pontos ainda. As prioridades abaixo são o melhor ponto de partida.</p>`}</div>
+      <div class="panel warn"><h3>Atenção</h3>${I.atencao.length ? `<ul>${I.atencao.map(d=>`<li>⚠ ${d.area}<span>${d.v}</span></li>`).join("")}</ul>` : `<p class="note">Nenhuma dimensão abaixo de 75 pontos. O foco agora é manter o monitoramento.</p>`}</div>
+    </section>
+
+    <section class="sec" aria-labelledby="pr">
+      <div class="eyebrow">Plano de rota</div>
+      <h2 id="pr">3 prioridades para os próximos 90 dias</h2>
+      <ol class="prio">${I.prioridades.map(p=>`<li><div><b>${p.dim.area} · ${p.dim.v}</b><p>${p.texto}</p></div></li>`).join("")}</ol>
+      <details class="method"><summary>Como calculamos seu índice?</summary><div class="in">
+        <p>Cada resposta de 0 a 4 vira pontos: 0 → 0, 1 → 25, 2 → 50, 3 → 75, 4 → 100. O índice geral é a média ponderada das seis dimensões, arredondada para inteiro:</p>
+        <table>${DIMS.map(d=>`<tr><td>${d.nome}</td><td>${R.dims[d.k]} × ${d.peso}%</td></tr>`).join("")}<tr><td><b>IME</b></td><td><b>${R.geral}</b></td></tr></table>
+        <p>O IME é um diagnóstico indicativo para reflexão gerencial, baseado na sua autoavaliação. Não é uma certificação nem uma medida científica.</p>
+      </div></details>
+    </section>
+
+    <section class="quote" aria-label="Mensagem"><p>Você não controla o cenário.</p><p>Mas controla como sua empresa responde a ele.</p></section>
+
+    <div class="actions"><button class="btn btn-ghost btn-block" id="btn-share">Compartilhar resultado</button></div>
+
+    <section class="final" aria-labelledby="fn">
+      <h2 id="fn">2027 está logo à frente. <span>Sua empresa está preparada?</span></h2>
+      <div class="sig"><span class="logo">EXER<span>.</span></span><span class="muted">Parceira na Gestão de Negócios.</span></div>
+      ${contato ? `<a class="btn btn-primary" href="${esc(contato)}" target="_blank" rel="noopener">Falar com a EXER</a>
+      <p class="muted" style="font-size:13px;margin:12px auto 0;max-width:34ch">Abre o WhatsApp com seu índice e classificação. Nada é enviado sem você tocar em enviar.</p>` : `<p class="muted">Procure a equipe EXER no evento para conversar sobre o seu resultado.</p>`}
+      <p style="margin-top:22px;display:flex;flex-direction:column;gap:4px;align-items:center"><button class="link-btn" id="btn-refazer">Refazer o diagnóstico</button><button class="link-btn" id="btn-apagar">Apagar meu resultado deste aparelho</button></p>
+    </section>`;
+
+  // animações de entrada
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const arc = $("#g-arc"); if(arc){ const L=+arc.dataset.len; arc.style.strokeDashoffset = (L*(1-R.geral/100)).toFixed(1); }
+    document.querySelectorAll("#resultado .fill").forEach((f,i)=> setTimeout(()=> f.style.width = f.dataset.w+"%", reduz?0:300+i*80));
+  }));
+  contar($("#r-num"), R.geral);
+
+  $("#btn-share").onclick = ()=> compartilhar(R);
+  $("#btn-refazer").onclick = ()=>{ store.del("ime_quiz","session"); ir("diagnostico"); };
+  $("#btn-apagar").onclick = ()=>{ store.del("ime_resultado"); store.del("ime_quiz","session"); toast("Resultado apagado deste aparelho"); ir("inicio"); };
+}
+/* ===================== CARD COMPARTILHÁVEL ===================== */
+async function gerarCard(R){
+  try{ await document.fonts.ready; }catch{}
+  const W=1080, H=1350, c=document.createElement("canvas"); c.width=W; c.height=H; const x=c.getContext("2d");
+  const g=x.createRadialGradient(W/2,-100,50,W/2,-100,1100); g.addColorStop(0,"#124443"); g.addColorStop(1,"#061113");
+  x.fillStyle="#061113"; x.fillRect(0,0,W,H); x.fillStyle=g; x.fillRect(0,0,W,H);
+  x.fillStyle="#3ddac6"; x.font="500 30px 'IBM Plex Mono', monospace"; x.textAlign="left";
+  x.fillText("IME EXER 2027", 90, 140);
+  x.fillStyle="#97b2af"; x.font="500 24px 'IBM Plex Mono', monospace"; x.fillText("ÍNDICE DE MATURIDADE EMPRESARIAL", 90, 182);
+  // gauge
+  const cx=W/2, cy=600, r=260, a0=150*Math.PI/180, a1=390*Math.PI/180;
+  x.lineCap="round"; x.lineWidth=34; x.strokeStyle="#11292e"; x.beginPath(); x.arc(cx,cy,r,a0,a1); x.stroke();
+  x.strokeStyle=R.classe.hex; x.beginPath(); x.arc(cx,cy,r,a0,a0+(a1-a0)*R.geral/100); x.stroke();
+  x.lineWidth=2; x.lineCap="butt";
+  for(let i=0;i<=20;i++){ const a=a0+(a1-a0)*i/20, m=i%5===0; x.strokeStyle=m?"#5f7d7a":"#2a5056"; x.beginPath(); x.moveTo(cx+(r+34)*Math.cos(a),cy+(r+34)*Math.sin(a)); x.lineTo(cx+(r+(m?60:48))*Math.cos(a),cy+(r+(m?60:48))*Math.sin(a)); x.stroke(); }
+  x.textAlign="center"; x.fillStyle="#97b2af"; x.font="500 30px 'IBM Plex Mono', monospace"; x.fillText("MEU ÍNDICE", cx, cy-150);
+  x.fillStyle="#ecf6f4"; x.font="800 230px Archivo, 'Arial Narrow', sans-serif"; x.fillText(String(R.geral), cx, cy+70);
+  x.fillStyle="#97b2af"; x.font="500 36px 'IBM Plex Mono', monospace"; x.fillText("/ 100", cx, cy+130);
+  x.fillStyle=R.classe.hex; x.font="800 56px Archivo, 'Arial Narrow', sans-serif"; x.fillText(R.classe.nome.toUpperCase(), cx, 1000);
+  x.fillStyle="#ecf6f4"; x.font="600 40px 'Instrument Sans', sans-serif"; x.fillText("Você não controla o cenário.", cx, 1110);
+  x.fillStyle="#3ddac6"; x.fillText("Mas controla como sua empresa responde a ele.", cx, 1162);
+  x.fillStyle="#ecf6f4"; x.font="800 48px Archivo, sans-serif"; x.fillText("EXER", cx, 1262);
+  x.fillStyle="#5f7d7a"; x.font="500 22px 'IBM Plex Mono', monospace"; x.fillText("PARCEIRA NA GESTÃO DE NEGÓCIOS", cx, 1300);
+  return c;
+}
+async function compartilhar(R){
+  const btn = $("#btn-share"); btn.disabled = true; btn.textContent = "Gerando card...";
+  try{
+    const canvas = await gerarCard(R);
+    const url = canvas.toDataURL("image/png");
+    const blob = await new Promise(r=>canvas.toBlob(r,"image/png"));
+    const texto = `Meu IME EXER 2027: ${R.geral}/100 · ${R.classe.nome}. Você não controla o cenário. Mas controla como sua empresa responde a ele.`;
+    const file = blob ? new File([blob], "ime-exer-2027.png", {type:"image/png"}) : null;
+    const podeShare = file && navigator.canShare && navigator.canShare({files:[file]});
+    const m = document.createElement("div"); m.className="modal"; m.setAttribute("role","dialog"); m.setAttribute("aria-modal","true"); m.setAttribute("aria-label","Compartilhar resultado");
+    m.innerHTML = `<div class="box"><img src="${url}" alt="Card: IME EXER 2027, ${R.geral} de 100, ${R.classe.nome}">
+      <div class="row">
+        ${podeShare?`<button class="btn btn-primary" id="m-share">Compartilhar</button>`:""}
+        ${DL ? `<button class="btn ${podeShare?"btn-ghost":"btn-primary"}" id="m-save">Salvar imagem</button>` : `<a class="btn ${podeShare?"btn-ghost":"btn-primary"}" href="${url}" download="ime-exer-2027.png">Baixar imagem</a>`}
+        <button class="btn btn-ghost" id="m-copy">Copiar texto</button>
+        <button class="link-btn" id="m-close" style="align-self:center">Fechar</button>
+      </div><p>No celular, você também pode pressionar e segurar a imagem para salvar.</p></div>`;
+    document.body.appendChild(m);
+    const fechar = ()=>{ m.remove(); btn.focus(); };
+    m.addEventListener("click", e=>{ if(e.target===m) fechar(); });
+    m.addEventListener("keydown", e=>{ if(e.key==="Escape") fechar(); });
+    $("#m-close",m).onclick = fechar;
+    $("#m-copy",m).onclick = async ()=>{ try{ await navigator.clipboard.writeText(texto); toast("Texto copiado"); }catch{ toast("Não foi possível copiar neste aparelho"); } };
+    const sv = $("#m-save",m); if(sv) sv.onclick = async ()=>{ try{ await DL.save({filename:"ime-exer-2027.png", data:blob}); }catch(e){ if(e && e.code!=="declined") toast("Pressione e segure a imagem para salvar"); } };
+    const sh = $("#m-share",m); if(sh) sh.onclick = async ()=>{ try{ await navigator.share({files:[file], text:texto, title:"IME EXER 2027"}); }catch(e){ if(e.name!=="AbortError") toast("Compartilhamento indisponível; salve a imagem"); } };
+    ( $("#m-share",m) || $("#m-copy",m) ).focus();
+  }catch(e){ console.warn(e); toast("Não foi possível gerar o card"); }
+  finally{ btn.disabled=false; btn.textContent="Compartilhar resultado"; }
+}
+
+/* ===================== PRIVACIDADE ===================== */
+function initPriv(){
+  document.querySelectorAll("[data-cfg]").forEach(el=>{ const v = IME_CONFIG[el.dataset.cfg]; if(v){ el.textContent = v; el.classList.remove("ph"); } });
+}
+
+document.documentElement.lang = "pt-BR";
+render();
+</script>
+
+</body>
+</html>
